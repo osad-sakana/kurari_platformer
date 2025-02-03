@@ -26,6 +26,8 @@ class Map:
     def _make_objects(self):
         for y, row in enumerate(self.map_data["map_data"]):
             for x, cell in enumerate(row):
+                if cell == 0:  # 0は何もないタイル
+                    continue
                 terrain = Terrain(
                     self.surface, x, y, cell
                 )
