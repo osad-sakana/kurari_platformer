@@ -25,3 +25,9 @@ PLAYER_MAX_SPEED = 5  # プレイヤーの最大速度
 PLAYER_ACCELERATION = 0.5  # プレイヤーの加速度
 PLAYER_GRAVITY = 1  # プレイヤーの重力
 PLAYER_JUMP_POWER = 11  # プレイヤーのジャンプ力
+
+# ステージファイル
+STAGE_FILE_NAMES = [
+    "stage0.json",
+    "stage1.json",
+]

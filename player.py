@@ -9,12 +9,16 @@ class Player():
         self.dx = 0  # x方向の速度
         self.dy = 0  # y方向の速度
         self.map = map
+        self.hp = 100
+        self.max_hp = 100
+        self.is_clear = False
 
     def update(self):
         # キー入力を受け付けて移動する
         self.key_control()
         self.move_left_right(self.dx)
         self.move_up_down()
+        self.fall()
 
     def draw(self):
         pygame.draw.rect(self.surface, settings.COLORS["white"], self.rect)
@@ -75,6 +79,8 @@ class Player():
                 if self.rect.colliderect(obj.rect):
                     self.rect.bottom = obj.rect.top
                     self.dy = 0
+                    self.terrain_damage(obj)
+                    self.check_on_goal(obj)
                     return
         if self.dy < 0:
             # 上方向の衝突判定
@@ -82,6 +88,7 @@ class Player():
                 if self.rect.colliderect(obj.rect):
                     self.rect.top = obj.rect.bottom
                     self.dy = 0
+                    self.check_on_goal(obj)
                     return
 
     def _collide_left_right(self):
@@ -91,6 +98,7 @@ class Player():
                 if self.rect.colliderect(obj.rect):
                     self.rect.right = obj.rect.left
                     self.dx = 0
+                    self.check_on_goal(obj)
                     return
         if self.dx < 0:
             # 左方向の衝突判定
@@ -98,6 +106,7 @@ class Player():
                 if self.rect.colliderect(obj.rect):
                     self.rect.left = obj.rect.right
                     self.dx = 0
+                    self.check_on_goal(obj)
                     return
 
     def _on_ground(self):
@@ -109,3 +118,17 @@ class Player():
                 return True
         self.rect.y -= 1
         return False
+
+    # プレイヤーが落ちたとき
+    def fall(self):
+        if self.rect.y > settings.HEIGHT:
+            self.hp = 0
+
+    # ダメージ床の処理
+    def terrain_damage(self, obj):
+        self.hp -= obj.damage
+
+    # ゴールに到達したかどうかの判定
+    def check_on_goal(self, obj):
+        if obj.is_goal:
+            self.is_clear = True
