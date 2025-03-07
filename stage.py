@@ -16,7 +16,7 @@ class Stage:
     # マップの初期化
     def reset(self):
         self.map.load_map(self.stage_file_name)
-        self.player = Player(self.surface, self.map)
+        self.player = Player(self.surface, self.map, (30, 30))
         self.ui = UI(self.surface, self.player, self.map)
 
     def update(self):
