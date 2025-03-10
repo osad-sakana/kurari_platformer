@@ -1,7 +1,7 @@
 import pygame
 import settings
 
-IMAGE_URL = "./assets/images/$Samurai_1.png"
+IMAGE_URL = "./assets/images/$Magician_1.png"
 IMAGE_ROWS = 4
 IMAGE_COLS = 4
 SPRITE_WIDTH = 32
@@ -52,13 +52,17 @@ class Player(pygame.sprite.Sprite):
         now = pygame.time.get_ticks()
         if now - self.last_update > self.frame_rate:
             self.last_update = now
-            self.frame_index = (self.frame_index + 1) % IMAGE_COLS
-            self.frame_index += self.frame_current_row * IMAGE_COLS
+            if self.frame_current_row == 1:  # 落下中はアニメーションしない
+                self.frame_index = 0 + IMAGE_COLS * self.frame_current_row
+            else:
+                self.frame_index = (self.frame_index + 1) % IMAGE_COLS
+                self.frame_index += self.frame_current_row * IMAGE_COLS
             self.image = self.frames[self.frame_index]
 
     def draw(self):
         # プレイヤーの画像を中央寄せで描画する
-        # pygame.draw.rect(self.surface, (255, 0, 0), self.rect, 1)
+        if settings.IS_DEBUG_MODE:
+            pygame.draw.rect(self.surface, settings.COLORS["blue"], self.rect, 1)
         draw_rect = self.image.get_rect(center=self.rect.center)
         if self.image_is_reverse:
             flipped_image = pygame.transform.flip(self.image, True, False)

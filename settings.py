@@ -1,3 +1,5 @@
+IS_DEBUG_MODE = False
+
 # ウィンドウサイズ
 WIDTH = 800
 HEIGHT = 600
