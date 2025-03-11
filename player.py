@@ -1,5 +1,6 @@
 import pygame
 import settings
+from sprite_with_frames import SpriteWithFrames
 
 IMAGE_URL = "./assets/images/$Magician_1.png"
 IMAGE_ROWS = 4
@@ -8,18 +9,18 @@ SPRITE_WIDTH = 32
 SPRITE_HEIGHT = 96
 
 
-class Player(pygame.sprite.Sprite):
+class Player(SpriteWithFrames):
     def __init__(self, surface, map, pos):
-        super().__init__()
-        self.surface = surface
-        self.frames = self._load_sprite_sheet(IMAGE_URL, IMAGE_COLS, IMAGE_ROWS)
-        self.frame_index = 0
-        self.image = self.frames[self.frame_index]
-        self.rect = pygame.Rect(pos[0], pos[1], SPRITE_WIDTH, SPRITE_HEIGHT)
-        self.last_update = pygame.time.get_ticks()
-        self.frame_rate = 60
-        self.frame_current_row = 0
-        self.image_is_reverse = True
+        super().__init__(
+            surface=surface,
+            pos=pos,
+            image_url=IMAGE_URL,
+            image_cols=IMAGE_COLS,
+            image_rows=IMAGE_ROWS,
+            sprite_width=SPRITE_WIDTH,
+            sprite_height=SPRITE_HEIGHT,
+            image_is_reverse=True,
+        )
 
         self.dx = 0  # x方向の速度
         self.dy = 0  # y方向の速度
@@ -27,19 +28,6 @@ class Player(pygame.sprite.Sprite):
         self.hp = 100
         self.max_hp = 100
         self.is_clear = False
-
-    @staticmethod
-    def _load_sprite_sheet(filename, cols, rows):
-        sheet = pygame.image.load(filename).convert_alpha()
-        sprite_width = sheet.get_width() // cols
-        sprite_height = sheet.get_height() // rows
-        sprites = []
-        for i in range(rows):
-            for j in range(cols):
-                rect = pygame.Rect(j * sprite_width, i * sprite_height, sprite_width, sprite_height)
-                frame = sheet.subsurface(rect)
-                sprites.append(frame)
-        return sprites
 
     def update(self):
         # キー入力を受け付けて移動する
@@ -63,12 +51,7 @@ class Player(pygame.sprite.Sprite):
         # プレイヤーの画像を中央寄せで描画する
         if settings.IS_DEBUG_MODE:
             pygame.draw.rect(self.surface, settings.COLORS["blue"], self.rect, 1)
-        draw_rect = self.image.get_rect(center=self.rect.center)
-        if self.image_is_reverse:
-            flipped_image = pygame.transform.flip(self.image, True, False)
-            self.surface.blit(flipped_image, draw_rect)
-        else:
-            self.surface.blit(self.image, draw_rect)
+        super().draw()
 
     def move_left_right(self, dx):
         self.rect.x += dx

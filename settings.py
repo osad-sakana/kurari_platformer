@@ -11,7 +11,7 @@ TITLE = "くらりのプラットフォーマー"
 FPS = 60
 
 # 1マスの大きさ
-GRID_SIZE = 40
+GRID_SIZE = 32
 
 # 色
 COLORS = {
