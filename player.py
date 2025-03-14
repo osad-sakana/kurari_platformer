@@ -37,15 +37,7 @@ class Player(SpriteWithFrames):
         self.fall()
         self.move_left_right(self.dx)
 
-        now = pygame.time.get_ticks()
-        if now - self.last_update > self.frame_rate:
-            self.last_update = now
-            if self.frame_current_row == 1:  # 落下中はアニメーションしない
-                self.frame_index = 0 + IMAGE_COLS * self.frame_current_row
-            else:
-                self.frame_index = (self.frame_index + 1) % IMAGE_COLS
-                self.frame_index += self.frame_current_row * IMAGE_COLS
-            self.image = self.frames[self.frame_index]
+        super()._frame_animation()
 
     def draw(self):
         # プレイヤーの画像を中央寄せで描画する
