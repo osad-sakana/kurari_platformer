@@ -30,8 +30,5 @@ PLAYER_JUMP_POWER = 11  # プレイヤーのジャンプ力
 
 # ステージファイル
 STAGE_FILE_NAMES = [
-    "Stage1.json",
-    "Stage2.json",
-    "Stage3.json",
-    "Stage4.json",
+    "n_stage1.json",
 ]

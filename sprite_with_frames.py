@@ -1,4 +1,5 @@
 import pygame
+import settings
 
 
 class SpriteWithFrames(pygame.sprite.Sprite):
@@ -44,6 +45,9 @@ class SpriteWithFrames(pygame.sprite.Sprite):
             draw_rect = scaled_image.get_rect(center=self.rect.center)
         else:
             scaled_image = self.image
+
+        if settings.IS_DEBUG_MODE:
+            pygame.draw.rect(self.surface, settings.COLORS["blue"], self.rect, 1)
 
         if self.image_is_reverse:
             flipped_image = pygame.transform.flip(scaled_image, True, False)

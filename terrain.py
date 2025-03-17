@@ -1,4 +1,4 @@
-import pygame
+# import pygame
 import settings
 from sprite_with_frames import SpriteWithFrames
 
@@ -11,11 +11,16 @@ terrain_colors = {
 }
 
 terrain_indexes = {
-    0: 6,
-    1: 8,
-    2: 13,
-    3: 3,
-    4: 4,
+    0: 5,
+    1: 6,
+    2: 7,
+    3: 8,
+    4: 34,
+    5: 122,
+    6: 94,
+    7: 95,
+    8: 96,
+    9: 215,
 }
 
 TERRAIN_IMAGE_URL = "./assets/images/terrain.png"
@@ -49,11 +54,11 @@ class Terrain(SpriteWithFrames):
         super().draw(magnification_rate=2)
 
     def set_terrain_damage(self, terrain_color):
-        if terrain_color == 3:
+        if terrain_color in [6, 7, 8]:
             return 1
         return 0
 
     def set_terrain_goal(self, terrain_color):
-        if terrain_color == 2:
+        if terrain_color == 9:
             return True
         return False

@@ -2,7 +2,7 @@ import pygame
 import settings
 from sprite_with_frames import SpriteWithFrames
 
-IMAGE_URL = "./assets/images/$Magician_1.png"
+IMAGE_URL = "./assets/images/$Gunman_1.png"
 IMAGE_ROWS = 4
 IMAGE_COLS = 4
 SPRITE_WIDTH = 32
