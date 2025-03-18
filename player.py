@@ -27,6 +27,7 @@ class Player(SpriteWithFrames):
         self.hp = 100
         self.max_hp = 100
         self.is_clear = False
+        self.has_motion_blur = True
 
     def update(self):
         # キー入力を受け付けて移動する
