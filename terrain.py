@@ -45,13 +45,19 @@ class Terrain(SpriteWithFrames):
         self.grid_y = grid_y
         self.rect.x = grid_x * settings.GRID_SIZE
         self.rect.y = grid_y * settings.GRID_SIZE
+        # rectを2倍のサイズにする
+        self.rect.width = settings.GRID_SIZE
+        self.rect.height = settings.GRID_SIZE
         self.color = terrain_indexes[terrain_color]
         self.image = self.frames[self.color]
         self.damage = self.set_terrain_damage(terrain_color)
         self.is_goal = self.set_terrain_goal(terrain_color)
 
     def draw(self):
-        super().draw(magnification_rate=2)
+        super().draw(
+            magnification_rate=1,
+            is_center=False,
+        )
 
     def set_terrain_damage(self, terrain_color):
         if terrain_color in [6, 7, 8]:

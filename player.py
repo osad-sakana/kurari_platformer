@@ -21,7 +21,6 @@ class Player(SpriteWithFrames):
             sprite_height=SPRITE_HEIGHT,
             image_is_reverse=True,
         )
-
         self.dx = 0  # x方向の速度
         self.dy = 0  # y方向の速度
         self.map = map
@@ -41,9 +40,10 @@ class Player(SpriteWithFrames):
 
     def draw(self):
         # プレイヤーの画像を中央寄せで描画する
-        if settings.IS_DEBUG_MODE:
-            pygame.draw.rect(self.surface, settings.COLORS["blue"], self.rect, 1)
-        super().draw()
+        super().draw(
+            is_player=True,
+            is_center=True,
+        )
 
     def move_left_right(self, dx):
         self.rect.x += dx
