@@ -156,6 +156,8 @@ class Player(SpriteWithFrames):
     # ダメージ床の処理
     def terrain_damage(self, obj):
         self.hp -= obj.damage
+        if self.hp <= 0:
+            self.hp = 0
 
     # ゴールに到達したかどうかの判定
     def check_on_goal(self, obj):
