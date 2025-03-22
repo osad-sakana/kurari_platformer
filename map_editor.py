@@ -474,8 +474,6 @@ class MapEditor:
 
             if chip_rect.collidepoint(x, y):
                 self.terrain_color = terrain_id
-                self.notification.add(
-                    f"マップチップ {terrain_id} を選択しました", duration=1000, color=settings.COLORS["yellow"])
                 return
 
     def run(self):
