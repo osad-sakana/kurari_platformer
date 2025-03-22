@@ -11,3 +11,9 @@
 #### PixelFlog様
 
 [https://pixelfrog-assets.itch.io/](https://pixelfrog-assets.itch.io/)
+
+### フォント
+
+#### `M+ FONTS`様
+
+[https://itouhiro.hatenablog.com/entry/20130602/font](https://itouhiro.hatenablog.com/entry/20130602/font)

@@ -1,5 +1,8 @@
 IS_DEBUG_MODE = False
 
+FONT_FILE_NAME = "PixelMplus12-Regular.ttf"
+FONT_NAME = "PixelMplus12"
+
 # ウィンドウサイズ
 WIDTH = 800
 HEIGHT = 600

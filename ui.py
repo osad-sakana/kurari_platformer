@@ -8,7 +8,7 @@ STAGE_NAME_POSITION = (10, 10)
 class UI():
     def __init__(self, surface, player, map):
         self.surface = surface
-        self.font = pygame.font.Font("./timemachine-wa.ttf", 30)
+        self.font = pygame.font.Font(f"./{settings.FONT_FILE_NAME}", 30)
         self.player = player
         self.map = map
 

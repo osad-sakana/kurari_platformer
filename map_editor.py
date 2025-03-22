@@ -8,7 +8,7 @@ from terrain import Terrain
 class FontManager:
     """Japanese font manager to ensure proper rendering of Japanese text"""
 
-    FONT_FILE = "timemachine-wa.ttf"
+    FONT_FILE = settings.FONT_FILE_NAME
 
     @classmethod
     def get_font(cls, size):
@@ -46,7 +46,7 @@ class Notification:
     def __init__(self, surface):
         self.surface = surface
         self.messages = []  # List of (message, creation_time, duration, color)
-        self.font = FontManager.get_font(24)
+        self.font = FontManager.get_font(18)
         self.padding = 10
         self.default_duration = 3000  # milliseconds
         self.fade_time = 500  # milliseconds to fade out
@@ -128,8 +128,8 @@ class MapSelectionUI:
     def __init__(self, surface):
         self.surface = surface
         # Use local Japanese font
-        self.font = FontManager.get_font(36)
-        self.small_font = FontManager.get_font(24)
+        self.font = FontManager.get_font(24)
+        self.small_font = FontManager.get_font(18)
         self.maps = self._load_map_list()
         self.selected_index = 0
         self.running = True
@@ -148,7 +148,8 @@ class MapSelectionUI:
         # Create maps directory if it doesn't exist
         if not os.path.exists(maps_dir):
             os.makedirs(maps_dir)
-            self.notification.add("マップディレクトリを作成しました", color=settings.COLORS["green"])
+            self.notification.add("マップディレクトリを作成しました",
+                                  color=settings.COLORS["green"])
 
         for filename in os.listdir(maps_dir):
             if filename.endswith('.json'):
@@ -218,7 +219,8 @@ class MapSelectionUI:
         # Draw instructions
         instructions = self.small_font.render(
             self.instruction_text, True, settings.COLORS["white"])
-        self.surface.blit(instructions, (settings.WIDTH // 2 - instructions.get_width() // 2, 100))
+        self.surface.blit(instructions, (settings.WIDTH //
+                          2 - instructions.get_width() // 2, 100))
 
         # Draw map buttons
         start_y = 150
@@ -231,20 +233,29 @@ class MapSelectionUI:
                 self.button_height
             )
 
-            # Button background
-            button_color = settings.COLORS["green"] if i == self.selected_index else settings.COLORS["gray"]
-            pygame.draw.rect(self.surface, button_color, button_rect, border_radius=5)
-            pygame.draw.rect(self.surface, settings.COLORS["white"], button_rect, 2, border_radius=5)
+            # Use same background for all items
+            # pygame.draw.rect(self.surface, settings.COLORS["gray"], button_rect, border_radius=5)
+
+            # Highlight the selected item with a thicker border
+            # border_width = 3 if i == self.selected_index else 1
+            # border_color = settings.COLORS["yellow"] if i == self.selected_index else settings.COLORS["white"]
+            # pygame.draw.rect(self.surface, border_color, button_rect, border_width, border_radius=5)
+
+            # Use different color for selected text
+            text_color = settings.COLORS["yellow"] if i == self.selected_index else settings.COLORS["white"]
 
             # Map name text
             text = self.font.render(
-                map_info["map_name"], True, settings.COLORS["white"])
-            self.surface.blit(text, (button_rect.centerx - text.get_width() // 2, button_rect.centery - text.get_height() // 2))
+                map_info["map_name"], True, text_color)
+            self.surface.blit(text, (button_rect.centerx - text.get_width() //
+                              2, button_rect.centery - text.get_height() // 2))
 
             # Filename text (smaller, below map name)
             filename_text = self.small_font.render(
-                map_info["filename"], True, settings.COLORS["white"])
-            self.surface.blit(filename_text, (button_rect.centerx - filename_text.get_width() // 2, button_rect.centery + text.get_height() // 2 + 5))
+                map_info["filename"], True, text_color)
+            self.surface.blit(filename_text,
+                              (button_rect.centerx - filename_text.get_width() // 2,
+                               button_rect.centery + text.get_height() // 2 + 5))
 
 
 class MapEditor:
@@ -365,10 +376,11 @@ class MapEditor:
         # Draw header
         header_rect = pygame.Rect(0, 0, self.window_width, self.header_height)
         pygame.draw.rect(self.surface, settings.COLORS["gray"], header_rect)
-        pygame.draw.line(self.surface, settings.COLORS["white"], (0, self.header_height), (self.window_width, self.header_height), 2)
+        pygame.draw.line(self.surface, settings.COLORS["white"], (
+            0, self.header_height), (self.window_width, self.header_height), 2)
 
         # Draw header text with Japanese font
-        font = FontManager.get_font(24)
+        font = FontManager.get_font(18)
         name_text = font.render(
             f"編集中: {self.map_name}", True, settings.COLORS["white"])
         save_text = font.render("Sキー: 保存", True, settings.COLORS["white"])
@@ -380,17 +392,20 @@ class MapEditor:
         footer_rect = pygame.Rect(
             0, footer_top, self.window_width, self.footer_height)
         pygame.draw.rect(self.surface, settings.COLORS["gray"], footer_rect)
-        pygame.draw.line(self.surface, settings.COLORS["white"], (0, footer_top), (self.window_width, footer_top), 2)
+        pygame.draw.line(self.surface, settings.COLORS["white"], (
+            0, footer_top), (self.window_width, footer_top), 2)
 
         # Draw terrain chips in the footer
         chip_size = 40
         chip_spacing = 20
-        start_x = (self.window_width - (len(self.terrain_samples) * (chip_size + chip_spacing) - chip_spacing)) // 2
+        start_x = (self.window_width - (len(self.terrain_samples)
+                   * (chip_size + chip_spacing) - chip_spacing)) // 2
 
         # Draw title for the terrain samples
         sample_title = font.render(
             "マップチップ一覧 (クリックまたは数字キーで選択)", True, settings.COLORS["white"])
-        self.surface.blit(sample_title, (self.window_width // 2 - sample_title.get_width() // 2, footer_top + 5))
+        self.surface.blit(sample_title, (self.window_width //
+                          2 - sample_title.get_width() // 2, footer_top + 5))
 
         # Get mouse position to check for hover effects
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -406,7 +421,8 @@ class MapEditor:
 
             # Draw highlight for hovering
             if is_hovered:
-                hover_rect = pygame.Rect(x_pos - 4, y_pos - 4, chip_size + 8, chip_size + 8)
+                hover_rect = pygame.Rect(
+                    x_pos - 4, y_pos - 4, chip_size + 8, chip_size + 8)
                 pygame.draw.rect(
                     self.surface, settings.COLORS["yellow"], hover_rect, 2, border_radius=2)
 
@@ -433,12 +449,15 @@ class MapEditor:
             # Draw number below the terrain
             number_text = font.render(
                 str(terrain_id), True, settings.COLORS["white"])
-            self.surface.blit(number_text, (x_pos + chip_size // 2 - number_text.get_width() // 2, y_pos + chip_size + 5))
+            self.surface.blit(number_text, (x_pos + chip_size // 2 -
+                              number_text.get_width() // 2, y_pos + chip_size + 5))
 
             # Highlight the current selection
             if terrain_id == self.terrain_color:
-                select_rect = pygame.Rect(x_pos - 2, y_pos - 2, chip_size + 4, chip_size + 4)
-                pygame.draw.rect(self.surface, settings.COLORS["red"], select_rect, 2)
+                select_rect = pygame.Rect(
+                    x_pos - 2, y_pos - 2, chip_size + 4, chip_size + 4)
+                pygame.draw.rect(
+                    self.surface, settings.COLORS["red"], select_rect, 2)
 
         # Now draw the actual map in the middle section (offset by header height)
         # Save the original surface position to restore it later
@@ -463,7 +482,8 @@ class MapEditor:
         """Handle clicks in the footer area to select terrain types"""
         chip_size = 40
         chip_spacing = 20
-        start_x = (self.window_width - (len(self.terrain_samples) * (chip_size + chip_spacing) - chip_spacing)) // 2
+        start_x = (self.window_width - (len(self.terrain_samples)
+                   * (chip_size + chip_spacing) - chip_spacing)) // 2
 
         footer_top = self.header_height + settings.HEIGHT
         y_pos = footer_top + 35
@@ -541,7 +561,8 @@ class MapEditor:
         # Create maps directory if it doesn't exist
         if not os.path.exists(maps_dir):
             os.makedirs(maps_dir)
-            self.notification.add("マップディレクトリを作成しました", color=settings.COLORS["green"])
+            self.notification.add("マップディレクトリを作成しました",
+                                  color=settings.COLORS["green"])
 
         # Use existing filepath if editing an existing map, otherwise create a new one
         save_path = self.current_filepath if self.current_filepath else os.path.join(
