@@ -4,8 +4,8 @@ FONT_FILE_NAME = "PixelMplus12-Regular.ttf"
 FONT_NAME = "PixelMplus12"
 
 # ウィンドウサイズ
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 768
+HEIGHT = 576
 
 # ウィンドウタイトル
 TITLE = "くらりのプラットフォーマー"
@@ -51,4 +51,5 @@ PLAYER_JUMP_POWER = 11  # プレイヤーのジャンプ力
 STAGE_FILE_NAMES = [
     "n_stage1.json",
     "n_stage2.json",
+    "n_stage3.json",
 ]
