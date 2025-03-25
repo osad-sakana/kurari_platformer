@@ -1,6 +1,7 @@
 from player import Player
 from map import Map
 from ui import UI
+from background import Background
 
 
 class Stage:
@@ -12,6 +13,7 @@ class Stage:
         self.stage_file_name = stage_file_name
         self.is_clear = False
         self.reset()
+        self.background = Background(self.surface)
 
     # マップの初期化
     def reset(self):
@@ -27,6 +29,7 @@ class Stage:
             self.is_clear = True
 
     def draw(self):
+        self.background.draw()
         self.map.draw()
         self.player.draw()
         self.ui.draw()

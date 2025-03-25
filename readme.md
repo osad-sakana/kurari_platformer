@@ -12,6 +12,10 @@
 
 [https://pixelfrog-assets.itch.io/](https://pixelfrog-assets.itch.io/)
 
+#### ぴぽや様
+
+[https://pipoya.net/sozai/](https://pipoya.net/sozai/)
+
 ### フォント
 
 #### `M+ FONTS`様
