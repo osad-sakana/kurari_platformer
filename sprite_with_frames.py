@@ -22,7 +22,7 @@ class SpriteWithFrames(pygame.sprite.Sprite):
         self.has_motion_blur = False
         # Motion blur parameters
         self.previous_positions = []  # Store previous positions for motion blur
-        self.max_blur_frames = 3      # Number of motion blur trailing images
+        self.max_blur_frames = 1      # Number of motion blur trailing images
         self.blur_opacity = 128       # Opacity of the blur trail (0-255)
 
     @staticmethod
