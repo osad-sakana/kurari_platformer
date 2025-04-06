@@ -12,8 +12,9 @@ class Stage:
         self.ui = None
         self.stage_file_name = stage_file_name
         self.is_clear = False
-        self.reset()
         self.background = Background(self.surface)
+        self.mixer = None
+        self.reset()
 
     # マップの初期化
     def reset(self):
