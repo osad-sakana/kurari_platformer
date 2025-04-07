@@ -26,8 +26,7 @@ class Game:
 
     def stage_init(self):
         self.stage = Stage(
-            self.surface, settings.STAGE_FILE_NAMES[self.stage_state_number])
-        self.stage.mixer = self.mixer  # Mixerインスタンスを共有
+            self.surface, settings.STAGE_FILE_NAMES[self.stage_state_number], self.mixer)
 
     def __del__(self):
         pygame.quit()

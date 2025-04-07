@@ -52,5 +52,4 @@ STAGE_FILE_NAMES = [
     "n_stage1.json",
     "n_stage2.json",
     "n_stage3.json",
-    "n_stage4.json",
 ]
