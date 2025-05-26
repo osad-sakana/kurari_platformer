@@ -3,6 +3,7 @@ import settings
 from stage import Stage
 from title_screen import TitleScreen
 import pygame_music_materials as pmm
+from sound_manager import SoundManager
 
 
 class Game:
@@ -22,11 +23,15 @@ class Game:
         self.mixer.set_volume(1.0)
         self.mixer.play(pmm.night)  # タイトル画面の音楽を再生
 
+        # 効果音の初期化
+        self.sound_manager = SoundManager()
+        self.sound_manager.set_volume(0.7)  # 効果音のボリュームを設定
+
         self.stage_init()
 
     def stage_init(self):
         self.stage = Stage(
-            self.surface, settings.STAGE_FILE_NAMES[self.stage_state_number], self.mixer)
+            self.surface, settings.STAGE_FILE_NAMES[self.stage_state_number], self.mixer, self.sound_manager)
 
     def __del__(self):
         pygame.quit()

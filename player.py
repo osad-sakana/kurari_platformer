@@ -10,7 +10,7 @@ SPRITE_HEIGHT = 96
 
 
 class Player(SpriteWithFrames):
-    def __init__(self, surface, map, pos):
+    def __init__(self, surface, map, pos, sound_manager):
         super().__init__(
             surface=surface,
             pos=pos,
@@ -24,10 +24,12 @@ class Player(SpriteWithFrames):
         self.dx = 0  # x方向の速度
         self.dy = 0  # y方向の速度
         self.map = map
+        self.sound_manager = sound_manager
         self.hp = 100
         self.max_hp = 100
         self.is_clear = False
         self.has_motion_blur = True
+        self.was_on_ground = False  # 前フレームで地面にいたかどうか
 
     def update(self):
         # キー入力を受け付けて移動する
@@ -36,6 +38,12 @@ class Player(SpriteWithFrames):
         self.move_up_down()
         self.fall()
         self.move_left_right(self.dx)
+
+        # 着地効果音の判定
+        on_ground = self._on_ground()
+        if not self.was_on_ground and on_ground:
+            self.sound_manager.play("landing")
+        self.was_on_ground = on_ground
 
         super()._frame_animation()
 
@@ -85,6 +93,7 @@ class Player(SpriteWithFrames):
         # ジャンプに関するキーコントロール
         if key[pygame.K_SPACE] and self._on_ground():
             self.dy = -settings.PLAYER_JUMP_POWER
+            self.sound_manager.play("jump")  # ジャンプ効果音の再生
         if not self._on_ground():
             self.frame_current_row = 1
 
@@ -157,9 +166,11 @@ class Player(SpriteWithFrames):
     def terrain_damage(self, obj):
         self.hp -= obj.damage
         if self.hp <= 0:
+            self.sound_manager.play("damage")
             self.hp = 0
 
     # ゴールに到達したかどうかの判定
     def check_on_goal(self, obj):
         if obj.is_goal:
+            self.sound_manager.play("submit")  # ゴール効果音の再生
             self.is_clear = True
