@@ -8,7 +8,8 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pygame (>=2.6.1,<3.0.0)"
+    "pygame (>=2.6.1,<3.0.0)",
+    "pygame-music-materials @ git+https://github.com/osad-sakana/pygame_music_materials.git"
 ]
 
 

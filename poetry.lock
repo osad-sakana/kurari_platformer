@@ -70,7 +70,26 @@ files = [
     {file = "pygame-2.6.1.tar.gz", hash = "sha256:56fb02ead529cee00d415c3e007f75e0780c655909aaa8e8bf616ee09c9feb1f"},
 ]
 
+[[package]]
+name = "pygame_music_materials"
+version = "0.1.1"
+description = ""
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = []
+develop = false
+
+[package.dependencies]
+pygame = ">=2.5.2"
+
+[package.source]
+type = "git"
+url = "https://github.com/osad-sakana/pygame_music_materials.git"
+reference = "HEAD"
+resolved_reference = "9dd4c222ea42692b8e4fb283485aae4dfdfafbd8"
+
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "cd2d544465119127621a3b8b8607558d822a8a8979acddf7dd6df1860e2a6ec6"
+content-hash = "b11a80643be06600be2d18a5d9912affd59d39436ac1fcc7d5be643811db4085"
